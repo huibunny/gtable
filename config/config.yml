@@ -1,0 +1,28 @@
+app:
+  name: 'basic_data'
+  version: '1.0.0'
+
+logger:
+  log_level: 'debug'
+  # rollbar_env: 'go-clean-template'
+
+consul:  
+  check_api: '/basic_data/healthz'
+  # consul心跳间隔, 秒
+  interval: '3'
+  # 心跳超时, 秒
+  timeout: '5'
+  tags: ['urlprefix-/basic_data strip=/basic_data']
+
+postgres:
+  pool_max: 2
+  url: 'postgresql://pg_user:123456@localhost:5432/basic_data'
+  tables:
+    - 
+      name: 't_kv'
+      type: 'kv'
+      column: ['k', 'v']
+    - 
+      name: 't_color'
+      type: 'list'
+      column: ['id', 'name']

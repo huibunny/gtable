@@ -1,0 +1,120 @@
+basePath: /v1
+definitions:
+  v1.doLoginRequest:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: alice
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  v1.doLoginWxRequest:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: alice
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  v1.loginResponse:
+    properties:
+      errcode:
+        example: 0
+        type: integer
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmUiOjM2MDAsInBhc3N3b3JkIjoiMTIzNDU2IiwidXNlcm5hbWUiOiJhbGljZSJ9.u9Pha5vRrJ5meQasanfshl4hLBghLDzVF0rkX6ZdKLw
+        type: string
+    type: object
+  v1.loginWxResponse:
+    properties:
+      errcode:
+        example: 0
+        type: integer
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmUiOjM2MDAsInBhc3N3b3JkIjoiMTIzNDU2IiwidXNlcm5hbWUiOiJhbGljZSJ9.u9Pha5vRrJ5meQasanfshl4hLBghLDzVF0rkX6ZdKLw
+        type: string
+    type: object
+  v1.response:
+    properties:
+      message:
+        example: success
+        type: string
+    type: object
+host: localhost:8820
+info:
+  contact: {}
+  description: Using a translation service as an example
+  title: gtable API
+  version: "1.0"
+paths:
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Login system
+      operationId: login
+      parameters:
+      - description: Login System
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.doLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.loginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Login
+      tags:
+      - login
+  /user/loginwx:
+    post:
+      consumes:
+      - application/json
+      description: Login system By Weixin
+      operationId: loginWx
+      parameters:
+      - description: Login System By Weixin
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.doLoginWxRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.loginWxResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: LoginWx
+      tags:
+      - loginWx
+swagger: "2.0"
